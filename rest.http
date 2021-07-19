@@ -6,6 +6,12 @@ GET  http://localhost:3000/abc_xyz
 
 ### Register
 POST  http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "user5@mail.com",
+    "password": "P@ssword"
+}
 
 ### Login
 POST  http://localhost:3000/auth/login
