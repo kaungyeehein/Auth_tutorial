@@ -1,5 +1,6 @@
 ### Home Route
 GET http://localhost:3000/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjY3MDE3OTgsImV4cCI6MTYyNjcwMTgxMywiYXVkIjoiNjBmNTdjMzg3NzVlMTUzMTE4MGI5YWFlIiwiaXNzIjoia29rYXVuZy5jb20ifQ.TD9Slxe08tzvs1V9PWUWqyYdfPReF4UwnfIT5njBTPk
 
 ### Error
 GET  http://localhost:3000/abc_xyz
@@ -9,12 +10,18 @@ POST  http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "email": "user5@mail.com",
+    "email": "user1@mail.com",
     "password": "P@ssword"
 }
 
 ### Login
 POST  http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "user1@mail.com",
+    "password": "P@ssword"
+}
 
 ### Refresh token
 POST  http://localhost:3000/auth/refresh-token
