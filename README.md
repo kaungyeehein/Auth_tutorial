@@ -30,3 +30,11 @@
     
     git branch --unset-upstream
     git push --set-upstream origin master
+
+## (4) Optional
+
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    brew install redis
+
+    npm i -g redis-commander
+    redis-commander
