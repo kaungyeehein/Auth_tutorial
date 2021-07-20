@@ -17,7 +17,8 @@
     npm i @hapi/joi #17.1.1
     npm i bcrypt #5.0.1
     npm i jsonwebtoken #8.5.1
-    
+    npm i redis #3.1.2
+
 ## (3) Git
 
     git init
@@ -34,7 +35,11 @@
 ## (4) Optional
 
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    brew install redis
+    brew update
+    brew install redis #6.2.4
+    brew services start redis
+    brew services stop redis
 
-    npm i -g redis-commander
+    sudo npm i -g redis-commander
     redis-commander
+    redis-cli

@@ -1,5 +1,6 @@
 const JWT = require('jsonwebtoken');
 const createError = require('http-errors');
+const client = require('./init_redis');
 
 module.exports = {
     signAccessToken: (userId) => {
@@ -7,7 +8,7 @@ module.exports = {
             const payload = {};
             const secret = process.env.ACCESS_TOKEN_SECRET;
             const options = {
-                expiresIn: '30sec',
+                expiresIn: '1h',
                 issuer: 'kokaung.com',
                 audience: userId
             };
@@ -40,7 +41,7 @@ module.exports = {
             const payload = {};
             const secret = process.env.REFRESH_TOKEN_SECRET;
             const options = {
-                expiresIn: '1m',
+                expiresIn: '1y',
                 issuer: 'kokaung.com',
                 audience: userId
             };
@@ -50,7 +51,14 @@ module.exports = {
                     console.log(err.message);
                     return reject(createError.InternalServerError());
                 }
-                resolve(token);
+
+                client.SET(userId, token, 'EX', 365 * 24 * 60 * 60, (err, reply) => {
+                    if (err) {
+                        console.log(err.message);
+                        return reject(createError.InternalServerError());
+                    }
+                    resolve(token);
+                });
             });
         });
     },
@@ -62,7 +70,15 @@ module.exports = {
                     return reject(createError.Unauthorized(message));
                 }
                 const userId = payload.aud;
-                resolve(userId);
+
+                client.GET(userId, (err, result) => {
+                    if (err) {
+                        console.log(err.message);
+                        return reject(createError.InternalServerError());
+                    }
+                    if (refreshToken === result) return resolve(userId);
+                    return reject(createError.Unauthorized());
+                });
             });
         });
     }
